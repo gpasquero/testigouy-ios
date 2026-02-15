@@ -2,16 +2,22 @@ import SwiftUI
 
 struct CameraDiscoveryView: View {
     @StateObject private var scanner = NetworkScanner()
+    @StateObject private var prober = RTSPProber()
     @Environment(\.dismiss) private var dismiss
     let onCameraSelected: (Camera) -> Void
+
+    @State private var probingCamera: NetworkScanner.DiscoveredCamera?
+    @State private var probeUsername = ""
+    @State private var probePassword = ""
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Status header
                 statusHeader
 
-                if scanner.discoveredHosts.isEmpty && !scanner.isScanning {
+                if let camera = probingCamera {
+                    probeView(camera: camera)
+                } else if scanner.discoveredHosts.isEmpty && !scanner.isScanning {
                     emptyState
                 } else {
                     cameraList
@@ -26,7 +32,9 @@ struct CameraDiscoveryView: View {
                     Button("Close") { dismiss() }
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    if scanner.isScanning {
+                    if probingCamera != nil {
+                        // no scan button while probing
+                    } else if scanner.isScanning {
                         Button("Stop") { scanner.stopScan() }
                             .foregroundStyle(.red)
                     } else {
@@ -39,11 +47,12 @@ struct CameraDiscoveryView: View {
             }
             .onDisappear {
                 scanner.stopScan()
+                prober.stop()
             }
         }
     }
 
-    // MARK: - Subviews
+    // MARK: - Status Header
 
     private var statusHeader: some View {
         VStack(spacing: 8) {
@@ -51,9 +60,13 @@ struct CameraDiscoveryView: View {
                 ProgressView(value: scanner.progress)
                     .tint(Color("AccentColor"))
                     .padding(.horizontal)
+            } else if prober.isProbing {
+                ProgressView(value: prober.progress)
+                    .tint(Color("AccentColor"))
+                    .padding(.horizontal)
             }
 
-            Text(scanner.statusMessage)
+            Text(prober.isProbing ? prober.statusMessage : scanner.statusMessage)
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.bottom, 8)
@@ -61,6 +74,8 @@ struct CameraDiscoveryView: View {
         .padding(.top, 8)
         .background(Color("BrandBackground"))
     }
+
+    // MARK: - Empty State
 
     private var emptyState: some View {
         VStack(spacing: 20) {
@@ -103,18 +118,20 @@ struct CameraDiscoveryView: View {
         .padding()
     }
 
+    // MARK: - Camera List
+
     private var cameraList: some View {
         List {
             Section {
                 ForEach(scanner.discoveredHosts) { camera in
-                    Button(action: { selectCamera(camera) }) {
+                    Button(action: { startProbing(camera) }) {
                         discoveredRow(camera)
                     }
                 }
             } header: {
                 Text("Found \(scanner.discoveredHosts.count) device(s)")
             } footer: {
-                Text("Tap a camera to add it to your list")
+                Text("Tap a camera to auto-detect its RTSP stream")
             }
         }
     }
@@ -151,21 +168,143 @@ struct CameraDiscoveryView: View {
                 )
                 .foregroundColor(camera.source == .onvif ? Color("AccentColor") : .secondary)
 
-            Image(systemName: "plus.circle.fill")
+            Image(systemName: "antenna.radiowaves.left.and.right")
                 .font(.title3)
                 .foregroundStyle(Color("AccentColor"))
         }
         .padding(.vertical, 4)
     }
 
+    // MARK: - Probe View
+
+    private func probeView(camera: NetworkScanner.DiscoveredCamera) -> some View {
+        VStack(spacing: 0) {
+            // Camera info
+            VStack(spacing: 8) {
+                HStack {
+                    Button(action: {
+                        prober.stop()
+                        probingCamera = nil
+                    }) {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                    .foregroundStyle(Color("AccentColor"))
+
+                    Spacer()
+
+                    Text(camera.host)
+                        .font(.headline)
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+
+                // Credentials (optional)
+                HStack(spacing: 12) {
+                    TextField("Username", text: $probeUsername)
+                        #if os(iOS)
+                        .textInputAutocapitalization(.never)
+                        #endif
+                        .autocorrectionDisabled()
+                        .textFieldStyle(.roundedBorder)
+
+                    SecureField("Password", text: $probePassword)
+                        .textFieldStyle(.roundedBorder)
+
+                    Button(action: {
+                        prober.probe(host: camera.host, port: camera.port,
+                                     username: probeUsername, password: probePassword)
+                    }) {
+                        Text(prober.isProbing ? "..." : "Probe")
+                            .fontWeight(.medium)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(Color("AccentColor"))
+                    .disabled(prober.isProbing)
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 8)
+            }
+            .background(Color("BrandBackground"))
+
+            // Results
+            if let foundPath = prober.foundPath {
+                // Success!
+                VStack(spacing: 16) {
+                    Spacer()
+
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 60))
+                        .foregroundStyle(.green)
+
+                    Text("Stream Found!")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+
+                    Text("Path: \(foundPath)")
+                        .font(.callout)
+                        .monospaced()
+                        .foregroundColor(.secondary)
+
+                    Button(action: { addCamera(camera, path: foundPath) }) {
+                        Label("Add Camera", systemImage: "plus.circle.fill")
+                            .fontWeight(.semibold)
+                            .padding(.horizontal, 32)
+                            .padding(.vertical, 12)
+                            .background(Color("AccentColor"))
+                            .foregroundColor(.black)
+                            .cornerRadius(12)
+                    }
+
+                    Spacer()
+                }
+            } else {
+                // Probe results list
+                List {
+                    Section {
+                        ForEach(Array(prober.triedPaths.enumerated()), id: \.offset) { _, item in
+                            HStack {
+                                Image(systemName: item.success ? "checkmark.circle.fill" : "xmark.circle")
+                                    .foregroundColor(item.success ? .green : .red.opacity(0.4))
+                                    .font(.caption)
+
+                                Text(item.path)
+                                    .font(.caption)
+                                    .monospaced()
+                                    .foregroundColor(item.success ? .primary : .secondary)
+                            }
+                        }
+                    } header: {
+                        if prober.isProbing {
+                            Text("Testing RTSP paths...")
+                        } else if !prober.triedPaths.isEmpty {
+                            Text("No working path found — try with credentials")
+                        } else {
+                            Text("Tap Probe to auto-detect the RTSP stream")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // MARK: - Actions
 
-    private func selectCamera(_ discovered: NetworkScanner.DiscoveredCamera) {
+    private func startProbing(_ camera: NetworkScanner.DiscoveredCamera) {
+        probingCamera = camera
+        probeUsername = ""
+        probePassword = ""
+        prober.probe(host: camera.host, port: camera.port)
+    }
+
+    private func addCamera(_ discovered: NetworkScanner.DiscoveredCamera, path: String) {
         let camera = Camera(
             name: discovered.displayName,
             host: discovered.host,
             rtspPort: discovered.port,
-            rtspPath: "/stream1",
+            rtspPath: path,
+            username: probeUsername,
+            password: probePassword,
             onvifPort: 80,
             ptzCapability: discovered.source == .onvif ? .onvif : .none
         )

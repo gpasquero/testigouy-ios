@@ -30,6 +30,7 @@
 		67846CC6C33577E937349D03 /* CameraListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9377928FF46768310BBEB2 /* CameraListViewModel.swift */; };
 		70EF69CF5AC90E3AF2475361 /* CameraListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C263D60CA5E2E827A2650E /* CameraListView.swift */; };
 		8201C107FD9516A4D11A2D93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192E98770E1371EF39462870 /* Constants.swift */; };
+		8AE98DC718A259A4E3751A83 /* RTSPProber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B176A29B9556AFF4F1F637 /* RTSPProber.swift */; };
 		8E575447FD18F777E3CF709C /* TestigoUYApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E01E4950E4D5B99E5E2CB3 /* TestigoUYApp.swift */; };
 		90D41C34E4F403EE40644E3D /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01C122C8B5BC88630204F7 /* PersistenceController.swift */; };
 		91D1DFABE9B42BE718409B29 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABE0485406104EEF3A40C1A /* Camera.swift */; };
@@ -82,6 +83,7 @@
 		770B76BB01B74CCCE0C35139 /* TestigoUY.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestigoUY.xcdatamodel; sourceTree = "<group>"; };
 		866B76A7A88B532598AA46D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		89E37420E2A202ABFF5C0DE1 /* MultiStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiStreamViewModel.swift; sourceTree = "<group>"; };
+		93B176A29B9556AFF4F1F637 /* RTSPProber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTSPProber.swift; sourceTree = "<group>"; };
 		94CCACE32BA99B041ADEB052 /* PTZControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTZControlView.swift; sourceTree = "<group>"; };
 		96A980E50FFF24C33639EB8C /* SingleCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCameraView.swift; sourceTree = "<group>"; };
 		9ADA07FACAB9165C6947B7D8 /* RecordingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPlayerView.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				7660CB10C63647A6570B072E /* NetworkScanner.swift */,
+				93B176A29B9556AFF4F1F637 /* RTSPProber.swift */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				114B8D363C1DE2505B3229E4 /* PTZControlView.swift in Sources */,
 				42AE659D17A7DB8EED3CBA07 /* PTZControlViewModel.swift in Sources */,
 				90D41C34E4F403EE40644E3D /* PersistenceController.swift in Sources */,
+				8AE98DC718A259A4E3751A83 /* RTSPProber.swift in Sources */,
 				DABD8BACE8DA9107A1264770 /* RTSPURLValidator.swift in Sources */,
 				4DC93DFC6D2534F5DEC3B4C2 /* Recording.swift in Sources */,
 				2960EB8DC9A6C0E2A96008BA /* RecordingListView.swift in Sources */,
