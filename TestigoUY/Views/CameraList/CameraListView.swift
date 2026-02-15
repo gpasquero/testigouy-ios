@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CameraListView: View {
     @StateObject private var viewModel = CameraListViewModel()
+    @State private var showingDiscovery = false
 
     var body: some View {
         NavigationStack {
@@ -15,7 +16,14 @@ struct CameraListView: View {
             .navigationTitle("Cameras")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button(action: { viewModel.showingAddCamera = true }) {
+                    Menu {
+                        Button(action: { viewModel.showingAddCamera = true }) {
+                            Label("Add Manually", systemImage: "plus")
+                        }
+                        Button(action: { showingDiscovery = true }) {
+                            Label("Discover on Network", systemImage: "wifi")
+                        }
+                    } label: {
                         Image(systemName: "plus")
                     }
                 }
@@ -28,6 +36,11 @@ struct CameraListView: View {
             .sheet(item: $viewModel.editingCamera) { camera in
                 AddCameraView(camera: camera) { updated in
                     viewModel.saveCamera(updated)
+                }
+            }
+            .sheet(isPresented: $showingDiscovery) {
+                CameraDiscoveryView { camera in
+                    viewModel.saveCamera(camera)
                 }
             }
             .onAppear {
@@ -44,8 +57,21 @@ struct CameraListView: View {
             Text("No Cameras")
                 .font(.title2)
                 .fontWeight(.semibold)
-            Text("Tap + to add your first IP camera")
+            Text("Tap + to add manually or discover on your network")
                 .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+
+            Button(action: { showingDiscovery = true }) {
+                Label("Discover Cameras", systemImage: "wifi")
+                    .fontWeight(.medium)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 10)
+                    .background(Color("AccentColor"))
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+            }
+
             Text("Disfruta de la tranquilidad simple")
                 .font(.caption)
                 .foregroundStyle(Color("AccentColor").opacity(0.8))

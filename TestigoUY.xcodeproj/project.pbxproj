@@ -20,6 +20,7 @@
 		2DB1BBFFED89F71DB06D948E /* VLCStreamEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FDE9CCE1B9BFA8F97EDB3 /* VLCStreamEngine.swift */; };
 		32D29E3978D2586C7030F3AE /* PTZCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A6D8E392FB5DE6CC4F26C5 /* PTZCapability.swift */; };
 		3419B7B89D6D396C04EF6C2D /* MultiStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E37420E2A202ABFF5C0DE1 /* MultiStreamViewModel.swift */; };
+		38CD9FE3594605C0F27CF992 /* NetworkScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7660CB10C63647A6570B072E /* NetworkScanner.swift */; };
 		3E85BD0A1D34B2A050D43909 /* VLCKitSPM in Frameworks */ = {isa = PBXBuildFile; productRef = AB35A76281A6378937B1EC4D /* VLCKitSPM */; };
 		3FB1A44AF4DD7CA11D7BAF40 /* TestigoUY.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7797F230616330F6FDA3E113 /* TestigoUY.xcdatamodeld */; };
 		42AE659D17A7DB8EED3CBA07 /* PTZControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B76DA2B98F864B909F7D24 /* PTZControlViewModel.swift */; };
@@ -45,6 +46,7 @@
 		DABD8BACE8DA9107A1264770 /* RTSPURLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F66B597B5C4F32556CDA696 /* RTSPURLValidator.swift */; };
 		DC6ADBD0BACA1DB58BE42219 /* ONVIFPTZService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5613A6B9B101163EBE4DF70 /* ONVIFPTZService.swift */; };
 		E41411794371984F79A95257 /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146B119A63C0AFFDA2F5D20C /* RecordingViewModel.swift */; };
+		E83B42394609AFD41429ACB3 /* CameraDiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488AE58B8D3FEBCA8321F5F0 /* CameraDiscoveryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,12 +70,14 @@
 		319EB97F45105A2ECE049D6B /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		3F66B597B5C4F32556CDA696 /* RTSPURLValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTSPURLValidator.swift; sourceTree = "<group>"; };
 		40826F14A394B28600C88756 /* RecordingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingListView.swift; sourceTree = "<group>"; };
+		488AE58B8D3FEBCA8321F5F0 /* CameraDiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDiscoveryView.swift; sourceTree = "<group>"; };
 		4B9377928FF46768310BBEB2 /* CameraListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraListViewModel.swift; sourceTree = "<group>"; };
 		58F870D60157F1178D1E21A8 /* TestigoUYTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TestigoUYTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A50D57A8820DD60A7929AD /* CameraRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRowView.swift; sourceTree = "<group>"; };
 		633FDE9CCE1B9BFA8F97EDB3 /* VLCStreamEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCStreamEngine.swift; sourceTree = "<group>"; };
 		6A5925D129CE4B590E67CE85 /* VLCPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCPlayerView.swift; sourceTree = "<group>"; };
 		7126AC16A0482DEB0ACC41C7 /* TestigoUYTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestigoUYTests.swift; sourceTree = "<group>"; };
+		7660CB10C63647A6570B072E /* NetworkScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkScanner.swift; sourceTree = "<group>"; };
 		76C263D60CA5E2E827A2650E /* CameraListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraListView.swift; sourceTree = "<group>"; };
 		770B76BB01B74CCCE0C35139 /* TestigoUY.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestigoUY.xcdatamodel; sourceTree = "<group>"; };
 		866B76A7A88B532598AA46D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 			children = (
 				C219A6D0747117BA69BDDC32 /* AddCamera */,
 				7A1F953E3778242104C07781 /* CameraList */,
+				E79759BE5904C129F03D01B5 /* Discovery */,
 				A03F5CF3D92E0523827CBDE4 /* GridView */,
 				6E67AB5465D38B96844DFEFC /* LiveView */,
 				D6060122AD85472B7A9A061A /* PTZ */,
@@ -196,6 +201,7 @@
 		55E1334022A4916F820AA283 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BDBE78B548180EA4EC944662 /* Discovery */,
 				51BAA8F5483D18D50A12B244 /* ONVIF */,
 				6E6D679C2F88BCE102012734 /* Persistence */,
 				6329073BC566A95768A554E8 /* StreamEngine */,
@@ -292,6 +298,14 @@
 			path = GridView;
 			sourceTree = "<group>";
 		};
+		BDBE78B548180EA4EC944662 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				7660CB10C63647A6570B072E /* NetworkScanner.swift */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
 		C219A6D0747117BA69BDDC32 /* AddCamera */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +329,14 @@
 				9ADA07FACAB9165C6947B7D8 /* RecordingPlayerView.swift */,
 			);
 			path = Recording;
+			sourceTree = "<group>";
+		};
+		E79759BE5904C129F03D01B5 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				488AE58B8D3FEBCA8321F5F0 /* CameraDiscoveryView.swift */,
+			);
+			path = Discovery;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,6 +438,7 @@
 			files = (
 				A0CE1339A18794F52AE6E0F4 /* AddCameraView.swift in Sources */,
 				91D1DFABE9B42BE718409B29 /* Camera.swift in Sources */,
+				E83B42394609AFD41429ACB3 /* CameraDiscoveryView.swift in Sources */,
 				70EF69CF5AC90E3AF2475361 /* CameraListView.swift in Sources */,
 				67846CC6C33577E937349D03 /* CameraListViewModel.swift in Sources */,
 				273136F602487B70ADEFA3C1 /* CameraRowView.swift in Sources */,
@@ -428,6 +451,7 @@
 				15E82BA62B6460860B6476F4 /* LiveStreamViewModel.swift in Sources */,
 				9F3FBA8B590C001AE47A9826 /* MultiCameraGridView.swift in Sources */,
 				3419B7B89D6D396C04EF6C2D /* MultiStreamViewModel.swift in Sources */,
+				38CD9FE3594605C0F27CF992 /* NetworkScanner.swift in Sources */,
 				ADC15797C6BF63CD83B75585 /* ONVIFAuth.swift in Sources */,
 				DC6ADBD0BACA1DB58BE42219 /* ONVIFPTZService.swift in Sources */,
 				32D29E3978D2586C7030F3AE /* PTZCapability.swift in Sources */,
