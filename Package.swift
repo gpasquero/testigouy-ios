@@ -2,23 +2,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "Claudio",
+    name: "TestigoUY",
     platforms: [.iOS(.v16), .macOS(.v13)],
     products: [
-        .library(name: "ClaudioLib", targets: ["ClaudioLib"]),
+        .library(name: "TestigoUYLib", targets: ["TestigoUYLib"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
-            name: "ClaudioLib",
+            name: "TestigoUYLib",
             dependencies: [],
-            path: "Claudio",
+            path: "TestigoUY",
             exclude: [
                 "Resources/Info.plist",
                 "Resources/Assets.xcassets",
-                "Services/Persistence/Claudio.xcdatamodeld",
-                "App/ClaudioApp.swift",
+                "Services/Persistence/TestigoUY.xcdatamodeld",
+                "App/TestigoUYApp.swift",
             ]
         ),
     ]

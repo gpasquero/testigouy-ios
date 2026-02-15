@@ -1,6 +1,6 @@
-name: Claudio
+name: TestigoUY
 options:
-  bundleIdPrefix: com.claudio
+  bundleIdPrefix: com.testigouy
   deploymentTarget:
     iOS: "16.0"
   xcodeVersion: "15.0"
@@ -20,15 +20,15 @@ packages:
     from: "5.1.0"
 
 targets:
-  Claudio:
+  TestigoUY:
     type: application
     platform: iOS
     sources:
-      - path: Claudio
+      - path: TestigoUY
     settings:
       base:
-        INFOPLIST_FILE: Claudio/Resources/Info.plist
-        PRODUCT_BUNDLE_IDENTIFIER: com.claudio.app
+        INFOPLIST_FILE: TestigoUY/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.testigouy.app
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
         DEVELOPMENT_TEAM: ""
@@ -42,13 +42,13 @@ targets:
       - package: FFmpegKitSPM
         product: FFmpeg-Kit
 
-  ClaudioTests:
+  TestigoUYTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: ClaudioTests
+      - path: TestigoUYTests
     dependencies:
-      - target: Claudio
+      - target: TestigoUY
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.claudio.app.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.testigouy.app.tests

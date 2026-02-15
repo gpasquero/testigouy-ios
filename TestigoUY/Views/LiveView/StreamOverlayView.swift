@@ -92,7 +92,7 @@ struct StreamOverlayView: View {
                             Text("PTZ")
                                 .font(.caption2)
                         }
-                        .foregroundColor(showPTZ ? .yellow : .white)
+                        .foregroundColor(showPTZ ? Color("AccentColor") : .white)
                     }
                 }
             }

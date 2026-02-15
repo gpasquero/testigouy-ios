@@ -65,7 +65,7 @@ struct SettingsView: View {
                     HStack {
                         Text("App")
                         Spacer()
-                        Text("Claudio")
+                        Text("TestigoUY")
                             .foregroundColor(.secondary)
                     }
                 }

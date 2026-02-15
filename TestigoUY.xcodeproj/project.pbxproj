@@ -1,0 +1,746 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0DC4440DC8121CA87E063AEE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866B76A7A88B532598AA46D3 /* ContentView.swift */; };
+		114B8D363C1DE2505B3229E4 /* PTZControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CCACE32BA99B041ADEB052 /* PTZControlView.swift */; };
+		14A8A21816224CBAA3BDC7B0 /* GridCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CF493EAC58E22CBA61AB3 /* GridCellView.swift */; };
+		15E82BA62B6460860B6476F4 /* LiveStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0187B915D83BA022C318C2DC /* LiveStreamViewModel.swift */; };
+		1B54128DF6BC03D9FAD0DD79 /* StreamRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9D0843149461C4AF4AD6C /* StreamRecorder.swift */; };
+		1CB9F1ACED6B94E289E72B4F /* SingleCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A980E50FFF24C33639EB8C /* SingleCameraView.swift */; };
+		267939523960F4DB073940F5 /* StreamOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB42A6230CC5F1C93D497F4 /* StreamOverlayView.swift */; };
+		273136F602487B70ADEFA3C1 /* CameraRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A50D57A8820DD60A7929AD /* CameraRowView.swift */; };
+		279A2BC7D63D28BBD2886AD5 /* GridLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258DE3EAEB1D43A0637F95BA /* GridLayoutPicker.swift */; };
+		2960EB8DC9A6C0E2A96008BA /* RecordingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40826F14A394B28600C88756 /* RecordingListView.swift */; };
+		2DB1BBFFED89F71DB06D948E /* VLCStreamEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FDE9CCE1B9BFA8F97EDB3 /* VLCStreamEngine.swift */; };
+		32D29E3978D2586C7030F3AE /* PTZCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A6D8E392FB5DE6CC4F26C5 /* PTZCapability.swift */; };
+		3419B7B89D6D396C04EF6C2D /* MultiStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E37420E2A202ABFF5C0DE1 /* MultiStreamViewModel.swift */; };
+		3E85BD0A1D34B2A050D43909 /* VLCKitSPM in Frameworks */ = {isa = PBXBuildFile; productRef = AB35A76281A6378937B1EC4D /* VLCKitSPM */; };
+		3FB1A44AF4DD7CA11D7BAF40 /* TestigoUY.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7797F230616330F6FDA3E113 /* TestigoUY.xcdatamodeld */; };
+		42AE659D17A7DB8EED3CBA07 /* PTZControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B76DA2B98F864B909F7D24 /* PTZControlViewModel.swift */; };
+		4DC93DFC6D2534F5DEC3B4C2 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA75DD8D491658F7A842B5D /* Recording.swift */; };
+		553264693E9AAAD52811EBFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7562827139A6C76619E83FF /* Assets.xcassets */; };
+		5574D02946A0A29E79291B61 /* RecordingPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADA07FACAB9165C6947B7D8 /* RecordingPlayerView.swift */; };
+		67846CC6C33577E937349D03 /* CameraListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9377928FF46768310BBEB2 /* CameraListViewModel.swift */; };
+		70EF69CF5AC90E3AF2475361 /* CameraListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C263D60CA5E2E827A2650E /* CameraListView.swift */; };
+		8201C107FD9516A4D11A2D93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192E98770E1371EF39462870 /* Constants.swift */; };
+		8E575447FD18F777E3CF709C /* TestigoUYApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E01E4950E4D5B99E5E2CB3 /* TestigoUYApp.swift */; };
+		90D41C34E4F403EE40644E3D /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01C122C8B5BC88630204F7 /* PersistenceController.swift */; };
+		91D1DFABE9B42BE718409B29 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABE0485406104EEF3A40C1A /* Camera.swift */; };
+		96B20C5D209115E9AA3368FC /* VLCPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5925D129CE4B590E67CE85 /* VLCPlayerView.swift */; };
+		9722ACF6DF4676098334B63C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139BB9F42FFCF50A1FFA00DE /* SettingsView.swift */; };
+		97EC1A76DF0A958B3AEFC726 /* FFmpeg-Kit in Frameworks */ = {isa = PBXBuildFile; productRef = 1881A70E7CAEE0AA80FECAA6 /* FFmpeg-Kit */; };
+		9F3FBA8B590C001AE47A9826 /* MultiCameraGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3CE36ADE4D0A83E183616 /* MultiCameraGridView.swift */; };
+		A0CE1339A18794F52AE6E0F4 /* AddCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60935F95212808AC692E4C0 /* AddCameraView.swift */; };
+		AA79C2B29ED24F5510D8529E /* StreamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84F9DA59AEE77A4F1CAC17 /* StreamProfile.swift */; };
+		ADC15797C6BF63CD83B75585 /* ONVIFAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B179746041627A2B4E6A6E11 /* ONVIFAuth.swift */; };
+		AFF6FB63A20A18B064D3D372 /* TestigoUYTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7126AC16A0482DEB0ACC41C7 /* TestigoUYTests.swift */; };
+		BA547305C1AD4F0AA0E34A97 /* CoreDataEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85B3C3E1C0FC3B2C5B75A71 /* CoreDataEntities.swift */; };
+		D22E57E0273EDEBF26380542 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319EB97F45105A2ECE049D6B /* GridLayout.swift */; };
+		DABD8BACE8DA9107A1264770 /* RTSPURLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F66B597B5C4F32556CDA696 /* RTSPURLValidator.swift */; };
+		DC6ADBD0BACA1DB58BE42219 /* ONVIFPTZService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5613A6B9B101163EBE4DF70 /* ONVIFPTZService.swift */; };
+		E41411794371984F79A95257 /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146B119A63C0AFFDA2F5D20C /* RecordingViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A27817FF94D54C62F8FBAE66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5372C34D7313BC239EB78019 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6FB09A5F7D0F325EBB06F40F;
+			remoteInfo = TestigoUY;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0187B915D83BA022C318C2DC /* LiveStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamViewModel.swift; sourceTree = "<group>"; };
+		10A3CE36ADE4D0A83E183616 /* MultiCameraGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCameraGridView.swift; sourceTree = "<group>"; };
+		139BB9F42FFCF50A1FFA00DE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		146B119A63C0AFFDA2F5D20C /* RecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewModel.swift; sourceTree = "<group>"; };
+		192E98770E1371EF39462870 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		258DE3EAEB1D43A0637F95BA /* GridLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayoutPicker.swift; sourceTree = "<group>"; };
+		2DA41C6E3F99BB0DBC96C7D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		319EB97F45105A2ECE049D6B /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		3F66B597B5C4F32556CDA696 /* RTSPURLValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTSPURLValidator.swift; sourceTree = "<group>"; };
+		40826F14A394B28600C88756 /* RecordingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingListView.swift; sourceTree = "<group>"; };
+		4B9377928FF46768310BBEB2 /* CameraListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraListViewModel.swift; sourceTree = "<group>"; };
+		58F870D60157F1178D1E21A8 /* TestigoUYTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TestigoUYTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		59A50D57A8820DD60A7929AD /* CameraRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRowView.swift; sourceTree = "<group>"; };
+		633FDE9CCE1B9BFA8F97EDB3 /* VLCStreamEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCStreamEngine.swift; sourceTree = "<group>"; };
+		6A5925D129CE4B590E67CE85 /* VLCPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCPlayerView.swift; sourceTree = "<group>"; };
+		7126AC16A0482DEB0ACC41C7 /* TestigoUYTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestigoUYTests.swift; sourceTree = "<group>"; };
+		76C263D60CA5E2E827A2650E /* CameraListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraListView.swift; sourceTree = "<group>"; };
+		770B76BB01B74CCCE0C35139 /* TestigoUY.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestigoUY.xcdatamodel; sourceTree = "<group>"; };
+		866B76A7A88B532598AA46D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		89E37420E2A202ABFF5C0DE1 /* MultiStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiStreamViewModel.swift; sourceTree = "<group>"; };
+		94CCACE32BA99B041ADEB052 /* PTZControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTZControlView.swift; sourceTree = "<group>"; };
+		96A980E50FFF24C33639EB8C /* SingleCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCameraView.swift; sourceTree = "<group>"; };
+		9ADA07FACAB9165C6947B7D8 /* RecordingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPlayerView.swift; sourceTree = "<group>"; };
+		9B01C122C8B5BC88630204F7 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		A60935F95212808AC692E4C0 /* AddCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCameraView.swift; sourceTree = "<group>"; };
+		A9A6D8E392FB5DE6CC4F26C5 /* PTZCapability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTZCapability.swift; sourceTree = "<group>"; };
+		B179746041627A2B4E6A6E11 /* ONVIFAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ONVIFAuth.swift; sourceTree = "<group>"; };
+		B6B76DA2B98F864B909F7D24 /* PTZControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTZControlViewModel.swift; sourceTree = "<group>"; };
+		C1E01E4950E4D5B99E5E2CB3 /* TestigoUYApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestigoUYApp.swift; sourceTree = "<group>"; };
+		C7562827139A6C76619E83FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C85B3C3E1C0FC3B2C5B75A71 /* CoreDataEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEntities.swift; sourceTree = "<group>"; };
+		CABE0485406104EEF3A40C1A /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		CD0303F58DE0696081B7A522 /* TestigoUY.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TestigoUY.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA75DD8D491658F7A842B5D /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		CEE9D0843149461C4AF4AD6C /* StreamRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamRecorder.swift; sourceTree = "<group>"; };
+		EB84F9DA59AEE77A4F1CAC17 /* StreamProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamProfile.swift; sourceTree = "<group>"; };
+		EFB42A6230CC5F1C93D497F4 /* StreamOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOverlayView.swift; sourceTree = "<group>"; };
+		F5613A6B9B101163EBE4DF70 /* ONVIFPTZService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ONVIFPTZService.swift; sourceTree = "<group>"; };
+		FA8CF493EAC58E22CBA61AB3 /* GridCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCellView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3D77B43316917022B2BDEFDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E85BD0A1D34B2A050D43909 /* VLCKitSPM in Frameworks */,
+				97EC1A76DF0A958B3AEFC726 /* FFmpeg-Kit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		09DA78C5E155F1001266271A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7562827139A6C76619E83FF /* Assets.xcassets */,
+				2DA41C6E3F99BB0DBC96C7D7 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		10EE7FB66ADA0A991290B8D2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4B9377928FF46768310BBEB2 /* CameraListViewModel.swift */,
+				0187B915D83BA022C318C2DC /* LiveStreamViewModel.swift */,
+				89E37420E2A202ABFF5C0DE1 /* MultiStreamViewModel.swift */,
+				B6B76DA2B98F864B909F7D24 /* PTZControlViewModel.swift */,
+				146B119A63C0AFFDA2F5D20C /* RecordingViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		271A4B14F3A9BFE51F8C8720 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C219A6D0747117BA69BDDC32 /* AddCamera */,
+				7A1F953E3778242104C07781 /* CameraList */,
+				A03F5CF3D92E0523827CBDE4 /* GridView */,
+				6E67AB5465D38B96844DFEFC /* LiveView */,
+				D6060122AD85472B7A9A061A /* PTZ */,
+				D6D7C3DE2A8FC50C95773194 /* Recording */,
+				3FADBD64D400BBFFAC90C7EE /* Settings */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		29BC6ED9F58CB3A750CB40D1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				866B76A7A88B532598AA46D3 /* ContentView.swift */,
+				C1E01E4950E4D5B99E5E2CB3 /* TestigoUYApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		335C1C3ACB9D296B803B2839 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CABE0485406104EEF3A40C1A /* Camera.swift */,
+				319EB97F45105A2ECE049D6B /* GridLayout.swift */,
+				A9A6D8E392FB5DE6CC4F26C5 /* PTZCapability.swift */,
+				CEA75DD8D491658F7A842B5D /* Recording.swift */,
+				EB84F9DA59AEE77A4F1CAC17 /* StreamProfile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3FADBD64D400BBFFAC90C7EE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				139BB9F42FFCF50A1FFA00DE /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		4D1EBB400355550091C17CB4 /* TestigoUYTests */ = {
+			isa = PBXGroup;
+			children = (
+				7126AC16A0482DEB0ACC41C7 /* TestigoUYTests.swift */,
+			);
+			path = TestigoUYTests;
+			sourceTree = "<group>";
+		};
+		51BAA8F5483D18D50A12B244 /* ONVIF */ = {
+			isa = PBXGroup;
+			children = (
+				B179746041627A2B4E6A6E11 /* ONVIFAuth.swift */,
+				F5613A6B9B101163EBE4DF70 /* ONVIFPTZService.swift */,
+			);
+			path = ONVIF;
+			sourceTree = "<group>";
+		};
+		55E1334022A4916F820AA283 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				51BAA8F5483D18D50A12B244 /* ONVIF */,
+				6E6D679C2F88BCE102012734 /* Persistence */,
+				6329073BC566A95768A554E8 /* StreamEngine */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5B2C29DFBDCEC63A29C4EAD8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				192E98770E1371EF39462870 /* Constants.swift */,
+				3F66B597B5C4F32556CDA696 /* RTSPURLValidator.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		5CFA570537B61FC9A1D2077E = {
+			isa = PBXGroup;
+			children = (
+				7215D1E5D9E61F6895B58ABD /* TestigoUY */,
+				4D1EBB400355550091C17CB4 /* TestigoUYTests */,
+				6C04B67A4846B802AA8F9E03 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6329073BC566A95768A554E8 /* StreamEngine */ = {
+			isa = PBXGroup;
+			children = (
+				CEE9D0843149461C4AF4AD6C /* StreamRecorder.swift */,
+				633FDE9CCE1B9BFA8F97EDB3 /* VLCStreamEngine.swift */,
+			);
+			path = StreamEngine;
+			sourceTree = "<group>";
+		};
+		6C04B67A4846B802AA8F9E03 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD0303F58DE0696081B7A522 /* TestigoUY.app */,
+				58F870D60157F1178D1E21A8 /* TestigoUYTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6E67AB5465D38B96844DFEFC /* LiveView */ = {
+			isa = PBXGroup;
+			children = (
+				96A980E50FFF24C33639EB8C /* SingleCameraView.swift */,
+				EFB42A6230CC5F1C93D497F4 /* StreamOverlayView.swift */,
+				6A5925D129CE4B590E67CE85 /* VLCPlayerView.swift */,
+			);
+			path = LiveView;
+			sourceTree = "<group>";
+		};
+		6E6D679C2F88BCE102012734 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				C85B3C3E1C0FC3B2C5B75A71 /* CoreDataEntities.swift */,
+				9B01C122C8B5BC88630204F7 /* PersistenceController.swift */,
+				7797F230616330F6FDA3E113 /* TestigoUY.xcdatamodeld */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		7215D1E5D9E61F6895B58ABD /* TestigoUY */ = {
+			isa = PBXGroup;
+			children = (
+				29BC6ED9F58CB3A750CB40D1 /* App */,
+				335C1C3ACB9D296B803B2839 /* Models */,
+				09DA78C5E155F1001266271A /* Resources */,
+				55E1334022A4916F820AA283 /* Services */,
+				5B2C29DFBDCEC63A29C4EAD8 /* Utilities */,
+				10EE7FB66ADA0A991290B8D2 /* ViewModels */,
+				271A4B14F3A9BFE51F8C8720 /* Views */,
+			);
+			path = TestigoUY;
+			sourceTree = "<group>";
+		};
+		7A1F953E3778242104C07781 /* CameraList */ = {
+			isa = PBXGroup;
+			children = (
+				76C263D60CA5E2E827A2650E /* CameraListView.swift */,
+				59A50D57A8820DD60A7929AD /* CameraRowView.swift */,
+			);
+			path = CameraList;
+			sourceTree = "<group>";
+		};
+		A03F5CF3D92E0523827CBDE4 /* GridView */ = {
+			isa = PBXGroup;
+			children = (
+				FA8CF493EAC58E22CBA61AB3 /* GridCellView.swift */,
+				258DE3EAEB1D43A0637F95BA /* GridLayoutPicker.swift */,
+				10A3CE36ADE4D0A83E183616 /* MultiCameraGridView.swift */,
+			);
+			path = GridView;
+			sourceTree = "<group>";
+		};
+		C219A6D0747117BA69BDDC32 /* AddCamera */ = {
+			isa = PBXGroup;
+			children = (
+				A60935F95212808AC692E4C0 /* AddCameraView.swift */,
+			);
+			path = AddCamera;
+			sourceTree = "<group>";
+		};
+		D6060122AD85472B7A9A061A /* PTZ */ = {
+			isa = PBXGroup;
+			children = (
+				94CCACE32BA99B041ADEB052 /* PTZControlView.swift */,
+			);
+			path = PTZ;
+			sourceTree = "<group>";
+		};
+		D6D7C3DE2A8FC50C95773194 /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				40826F14A394B28600C88756 /* RecordingListView.swift */,
+				9ADA07FACAB9165C6947B7D8 /* RecordingPlayerView.swift */,
+			);
+			path = Recording;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4E093D8C4E9800234A87081E /* TestigoUYTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1AC4E2C50E1224F928FD472 /* Build configuration list for PBXNativeTarget "TestigoUYTests" */;
+			buildPhases = (
+				DB739A10D77DE4A50340598D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC032CF8F05F66BEBD5CD244 /* PBXTargetDependency */,
+			);
+			name = TestigoUYTests;
+			packageProductDependencies = (
+			);
+			productName = TestigoUYTests;
+			productReference = 58F870D60157F1178D1E21A8 /* TestigoUYTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6FB09A5F7D0F325EBB06F40F /* TestigoUY */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 593B3303345E533E8AE76F2D /* Build configuration list for PBXNativeTarget "TestigoUY" */;
+			buildPhases = (
+				3B4ACDCFF738685B1B17950F /* Sources */,
+				CCA854967BE20C838309522B /* Resources */,
+				3D77B43316917022B2BDEFDB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestigoUY;
+			packageProductDependencies = (
+				AB35A76281A6378937B1EC4D /* VLCKitSPM */,
+				1881A70E7CAEE0AA80FECAA6 /* FFmpeg-Kit */,
+			);
+			productName = TestigoUY;
+			productReference = CD0303F58DE0696081B7A522 /* TestigoUY.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5372C34D7313BC239EB78019 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					6FB09A5F7D0F325EBB06F40F = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 9E6344E10DC31E4A8FE12B46 /* Build configuration list for PBXProject "TestigoUY" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5CFA570537B61FC9A1D2077E;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				67173BA24F3E197EDFBFEE9C /* XCRemoteSwiftPackageReference "ffmpeg-kit-spm" */,
+				EBF9F9CDE628187D07AF0C05 /* XCRemoteSwiftPackageReference "vlckit-spm" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6FB09A5F7D0F325EBB06F40F /* TestigoUY */,
+				4E093D8C4E9800234A87081E /* TestigoUYTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CCA854967BE20C838309522B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				553264693E9AAAD52811EBFE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3B4ACDCFF738685B1B17950F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0CE1339A18794F52AE6E0F4 /* AddCameraView.swift in Sources */,
+				91D1DFABE9B42BE718409B29 /* Camera.swift in Sources */,
+				70EF69CF5AC90E3AF2475361 /* CameraListView.swift in Sources */,
+				67846CC6C33577E937349D03 /* CameraListViewModel.swift in Sources */,
+				273136F602487B70ADEFA3C1 /* CameraRowView.swift in Sources */,
+				8201C107FD9516A4D11A2D93 /* Constants.swift in Sources */,
+				0DC4440DC8121CA87E063AEE /* ContentView.swift in Sources */,
+				BA547305C1AD4F0AA0E34A97 /* CoreDataEntities.swift in Sources */,
+				14A8A21816224CBAA3BDC7B0 /* GridCellView.swift in Sources */,
+				D22E57E0273EDEBF26380542 /* GridLayout.swift in Sources */,
+				279A2BC7D63D28BBD2886AD5 /* GridLayoutPicker.swift in Sources */,
+				15E82BA62B6460860B6476F4 /* LiveStreamViewModel.swift in Sources */,
+				9F3FBA8B590C001AE47A9826 /* MultiCameraGridView.swift in Sources */,
+				3419B7B89D6D396C04EF6C2D /* MultiStreamViewModel.swift in Sources */,
+				ADC15797C6BF63CD83B75585 /* ONVIFAuth.swift in Sources */,
+				DC6ADBD0BACA1DB58BE42219 /* ONVIFPTZService.swift in Sources */,
+				32D29E3978D2586C7030F3AE /* PTZCapability.swift in Sources */,
+				114B8D363C1DE2505B3229E4 /* PTZControlView.swift in Sources */,
+				42AE659D17A7DB8EED3CBA07 /* PTZControlViewModel.swift in Sources */,
+				90D41C34E4F403EE40644E3D /* PersistenceController.swift in Sources */,
+				DABD8BACE8DA9107A1264770 /* RTSPURLValidator.swift in Sources */,
+				4DC93DFC6D2534F5DEC3B4C2 /* Recording.swift in Sources */,
+				2960EB8DC9A6C0E2A96008BA /* RecordingListView.swift in Sources */,
+				5574D02946A0A29E79291B61 /* RecordingPlayerView.swift in Sources */,
+				E41411794371984F79A95257 /* RecordingViewModel.swift in Sources */,
+				9722ACF6DF4676098334B63C /* SettingsView.swift in Sources */,
+				1CB9F1ACED6B94E289E72B4F /* SingleCameraView.swift in Sources */,
+				267939523960F4DB073940F5 /* StreamOverlayView.swift in Sources */,
+				AA79C2B29ED24F5510D8529E /* StreamProfile.swift in Sources */,
+				1B54128DF6BC03D9FAD0DD79 /* StreamRecorder.swift in Sources */,
+				3FB1A44AF4DD7CA11D7BAF40 /* TestigoUY.xcdatamodeld in Sources */,
+				8E575447FD18F777E3CF709C /* TestigoUYApp.swift in Sources */,
+				96B20C5D209115E9AA3368FC /* VLCPlayerView.swift in Sources */,
+				2DB1BBFFED89F71DB06D948E /* VLCStreamEngine.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB739A10D77DE4A50340598D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFF6FB63A20A18B064D3D372 /* TestigoUYTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AC032CF8F05F66BEBD5CD244 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6FB09A5F7D0F325EBB06F40F /* TestigoUY */;
+			targetProxy = A27817FF94D54C62F8FBAE66 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		08248C37EEF1D5BFDA2A1A16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		0FCB490C0C9222E1B94CE33B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.testigouy.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestigoUY.app/TestigoUY";
+			};
+			name = Debug;
+		};
+		54DF7A2E934A8C3D4E0AECCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = TestigoUY/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.testigouy.app;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		598FA41C039642878ECB321B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = TestigoUY/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.testigouy.app;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		94B98BD30E3DB8C8E46C0D28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		E3AEE85D35D9568396116251 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.testigouy.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestigoUY.app/TestigoUY";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		593B3303345E533E8AE76F2D /* Build configuration list for PBXNativeTarget "TestigoUY" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				598FA41C039642878ECB321B /* Debug */,
+				54DF7A2E934A8C3D4E0AECCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9E6344E10DC31E4A8FE12B46 /* Build configuration list for PBXProject "TestigoUY" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08248C37EEF1D5BFDA2A1A16 /* Debug */,
+				94B98BD30E3DB8C8E46C0D28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A1AC4E2C50E1224F928FD472 /* Build configuration list for PBXNativeTarget "TestigoUYTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FCB490C0C9222E1B94CE33B /* Debug */,
+				E3AEE85D35D9568396116251 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		67173BA24F3E197EDFBFEE9C /* XCRemoteSwiftPackageReference "ffmpeg-kit-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tylerjonesio/ffmpeg-kit-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+		EBF9F9CDE628187D07AF0C05 /* XCRemoteSwiftPackageReference "vlckit-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tylerjonesio/vlckit-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1881A70E7CAEE0AA80FECAA6 /* FFmpeg-Kit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67173BA24F3E197EDFBFEE9C /* XCRemoteSwiftPackageReference "ffmpeg-kit-spm" */;
+			productName = "FFmpeg-Kit";
+		};
+		AB35A76281A6378937B1EC4D /* VLCKitSPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBF9F9CDE628187D07AF0C05 /* XCRemoteSwiftPackageReference "vlckit-spm" */;
+			productName = VLCKitSPM;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		7797F230616330F6FDA3E113 /* TestigoUY.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				770B76BB01B74CCCE0C35139 /* TestigoUY.xcdatamodel */,
+			);
+			currentVersion = 770B76BB01B74CCCE0C35139 /* TestigoUY.xcdatamodel */;
+			path = TestigoUY.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5372C34D7313BC239EB78019 /* Project object */;
+}

@@ -1,13 +1,14 @@
 import SwiftUI
 
 @main
-struct ClaudioApp: App {
+struct TestigoUYApp: App {
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .tint(Color("AccentColor"))
         }
     }
 }

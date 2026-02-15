@@ -26,7 +26,7 @@ struct CameraRowView: View {
                     if camera.ptzCapability.supportsPTZ {
                         Label("PTZ", systemImage: "arrow.up.and.down.and.arrow.left.and.right")
                             .font(.caption2)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(Color("AccentColor"))
                     }
 
                     Text(camera.streamProfile.displayName)

@@ -37,15 +37,19 @@ struct CameraListView: View {
     }
 
     private var emptyState: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 20) {
             Image(systemName: "video.badge.plus")
                 .font(.system(size: 60))
-                .foregroundColor(.secondary)
+                .foregroundStyle(Color("AccentColor"))
             Text("No Cameras")
                 .font(.title2)
                 .fontWeight(.semibold)
             Text("Tap + to add your first IP camera")
                 .foregroundColor(.secondary)
+            Text("Disfruta de la tranquilidad simple")
+                .font(.caption)
+                .foregroundStyle(Color("AccentColor").opacity(0.8))
+                .italic()
         }
     }
 

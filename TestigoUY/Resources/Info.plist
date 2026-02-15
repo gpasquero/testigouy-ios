@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Claudio</string>
+	<string>TestigoUY</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -48,8 +48,8 @@
 		<true/>
 	</dict>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Claudio needs access to your local network to connect to IP cameras via RTSP and ONVIF protocols.</string>
+	<string>TestigoUY needs access to your local network to connect to IP cameras via RTSP and ONVIF protocols.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Claudio needs access to save camera snapshots to your photo library.</string>
+	<string>TestigoUY needs access to save camera snapshots to your photo library.</string>
 </dict>
 </plist>

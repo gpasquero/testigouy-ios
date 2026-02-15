@@ -1,7 +1,7 @@
 import XCTest
-@testable import Claudio
+@testable import TestigoUY
 
-final class ClaudioTests: XCTestCase {
+final class TestigoUYTests: XCTestCase {
 
     func testCameraRTSPURL() {
         let camera = Camera(
