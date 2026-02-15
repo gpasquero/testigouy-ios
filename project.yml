@@ -1,0 +1,54 @@
+name: Claudio
+options:
+  bundleIdPrefix: com.claudio
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+
+packages:
+  VLCKitSPM:
+    url: https://github.com/tylerjonesio/vlckit-spm.git
+    from: "3.5.1"
+  FFmpegKitSPM:
+    url: https://github.com/tylerjonesio/ffmpeg-kit-spm.git
+    from: "5.1.0"
+
+targets:
+  Claudio:
+    type: application
+    platform: iOS
+    sources:
+      - path: Claudio
+    settings:
+      base:
+        INFOPLIST_FILE: Claudio/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.claudio.app
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SWIFT_EMIT_LOC_STRINGS: "YES"
+    dependencies:
+      - package: VLCKitSPM
+      - package: FFmpegKitSPM
+        product: FFmpeg-Kit
+
+  ClaudioTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: ClaudioTests
+    dependencies:
+      - target: Claudio
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.claudio.app.tests

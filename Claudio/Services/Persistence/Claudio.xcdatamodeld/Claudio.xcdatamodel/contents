@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CameraEntity" representedClassName="CameraEntity" syncable="YES" codeGenerationType="none">
+        <attribute name="host" attributeType="String" defaultValueString=""/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="onvifPort" attributeType="Integer 32" defaultValueString="80" usesScalarValueType="YES"/>
+        <attribute name="password" attributeType="String" defaultValueString=""/>
+        <attribute name="ptzCapability" attributeType="String" defaultValueString="none"/>
+        <attribute name="rtspPath" attributeType="String" defaultValueString="/stream1"/>
+        <attribute name="rtspPort" attributeType="Integer 32" defaultValueString="554" usesScalarValueType="YES"/>
+        <attribute name="streamProfile" attributeType="String" defaultValueString="main"/>
+        <attribute name="username" attributeType="String" defaultValueString=""/>
+        <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RecordingEntity" inverseName="camera" inverseEntity="RecordingEntity"/>
+    </entity>
+    <entity name="RecordingEntity" representedClassName="RecordingEntity" syncable="YES" codeGenerationType="none">
+        <attribute name="cameraName" attributeType="String" defaultValueString=""/>
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="filePath" attributeType="String" defaultValueString=""/>
+        <attribute name="fileSize" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="startDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="thumbnailPath" optional="YES" attributeType="String"/>
+        <relationship name="camera" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CameraEntity" inverseName="recordings" inverseEntity="CameraEntity"/>
+    </entity>
+</model>
