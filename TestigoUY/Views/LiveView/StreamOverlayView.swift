@@ -10,9 +10,18 @@ struct StreamOverlayView: View {
             // Top bar
             HStack {
                 Button(action: onDismiss) {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.title)
-                        .foregroundColor(.white)
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                        Text("Back")
+                            .font(.body)
+                            .fontWeight(.medium)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Capsule().fill(.black.opacity(0.4)))
                 }
 
                 Spacer()
@@ -34,6 +43,17 @@ struct StreamOverlayView: View {
 
             // Bottom controls
             HStack(spacing: 30) {
+                // Mute button
+                Button(action: { viewModel.toggleMute() }) {
+                    VStack(spacing: 4) {
+                        Image(systemName: viewModel.isMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")
+                            .font(.title2)
+                        Text(viewModel.isMuted ? "Unmute" : "Mute")
+                            .font(.caption2)
+                    }
+                    .foregroundColor(viewModel.isMuted ? Color("AccentColor") : .white)
+                }
+
                 // Snapshot button
                 Button(action: { viewModel.takeSnapshot() }) {
                     VStack(spacing: 4) {
@@ -110,16 +130,17 @@ struct StreamOverlayView: View {
             Circle()
                 .fill(statusColor)
                 .frame(width: 8, height: 8)
-            Text(viewModel.streamEngine.state.statusText)
+            Text(viewModel.streamState.statusText)
                 .font(.caption)
                 .foregroundColor(.white)
         }
     }
 
     private var statusColor: Color {
-        switch viewModel.streamEngine.state {
+        switch viewModel.streamState {
         case .playing: return .green
         case .connecting: return .yellow
+        case .buffering: return .orange
         case .recording: return .red
         case .error: return .red
         case .idle: return .gray

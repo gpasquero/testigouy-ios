@@ -3,6 +3,7 @@ import SwiftUI
 struct CameraListView: View {
     @StateObject private var viewModel = CameraListViewModel()
     @State private var showingDiscovery = false
+    @State private var cameraToDelete: Camera?
 
     var body: some View {
         NavigationStack {
@@ -42,6 +43,21 @@ struct CameraListView: View {
                 CameraDiscoveryView { camera in
                     viewModel.saveCamera(camera)
                 }
+            }
+            .confirmationDialog(
+                "Delete Camera",
+                isPresented: Binding(
+                    get: { cameraToDelete != nil },
+                    set: { if !$0 { cameraToDelete = nil } }
+                ),
+                presenting: cameraToDelete
+            ) { camera in
+                Button("Delete \"\(camera.name)\"", role: .destructive) {
+                    viewModel.deleteCamera(camera)
+                    cameraToDelete = nil
+                }
+            } message: { camera in
+                Text("This will remove \"\(camera.name)\" and all its recordings. This action cannot be undone.")
             }
             .onAppear {
                 viewModel.loadCameras()
@@ -87,7 +103,7 @@ struct CameraListView: View {
                 }
                 .swipeActions(edge: .trailing) {
                     Button(role: .destructive) {
-                        viewModel.deleteCamera(camera)
+                        cameraToDelete = camera
                     } label: {
                         Label("Delete", systemImage: "trash")
                     }
@@ -98,6 +114,19 @@ struct CameraListView: View {
                         Label("Edit", systemImage: "pencil")
                     }
                     .tint(.blue)
+                }
+                .contextMenu {
+                    Button {
+                        viewModel.editingCamera = camera
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+
+                    Button(role: .destructive) {
+                        cameraToDelete = camera
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
                 }
             }
         }

@@ -1,5 +1,7 @@
 import Foundation
 import SwiftUI
+import Combine
+import os
 
 @MainActor
 final class LiveStreamViewModel: ObservableObject {
@@ -7,26 +9,39 @@ final class LiveStreamViewModel: ObservableObject {
     @Published var isRecording = false
     @Published var recordingDuration: TimeInterval = 0
     @Published var snapshotSaved = false
+    @Published var isMuted = false
 
     let camera: Camera
     let streamEngine = VLCStreamEngine()
     let recorder = StreamRecorder()
 
     private var currentRecording: Recording?
+    private var stateSink: AnyCancellable?
 
     init(camera: Camera) {
         self.camera = camera
+        Log.stream.debug("[LiveVM] Initialized for camera '\(camera.name, privacy: .public)' at \(camera.host, privacy: .public)")
+
+        // Forward streamEngine state changes so SwiftUI re-renders
+        stateSink = streamEngine.$state
+            .receive(on: RunLoop.main)
+            .sink { [weak self] newState in
+                self?.streamState = newState
+            }
     }
 
     func startStream() {
         guard let url = camera.rtspURL else {
+            Log.stream.error("[LiveVM] Invalid RTSP URL for camera '\(self.camera.name, privacy: .public)'")
             streamState = .error("Invalid RTSP URL")
             return
         }
+        Log.stream.info("[LiveVM] Starting stream for '\(self.camera.name, privacy: .public)' → \(url.absoluteString, privacy: .public)")
         streamEngine.play(url: url)
     }
 
     func stopStream() {
+        Log.stream.info("[LiveVM] Stopping stream for '\(self.camera.name, privacy: .public)'")
         if isRecording {
             stopRecording()
         }
@@ -34,7 +49,11 @@ final class LiveStreamViewModel: ObservableObject {
     }
 
     func startRecording() {
-        guard let url = camera.rtspURL else { return }
+        guard let url = camera.rtspURL else {
+            Log.recording.error("[LiveVM] Cannot record: invalid RTSP URL")
+            return
+        }
+        Log.recording.info("[LiveVM] Starting recording for '\(self.camera.name, privacy: .public)'")
         currentRecording = recorder.startRecording(url: url, cameraId: camera.id, cameraName: camera.name)
         isRecording = true
 
@@ -54,6 +73,7 @@ final class LiveStreamViewModel: ObservableObject {
         recording.endDate = result.endDate
         recording.fileSize = result.fileSize
 
+        Log.recording.info("[LiveVM] Recording saved. Duration: \(Int(result.endDate.timeIntervalSince(recording.startDate)))s")
         PersistenceController.shared.saveRecording(recording)
 
         isRecording = false
@@ -61,7 +81,13 @@ final class LiveStreamViewModel: ObservableObject {
         currentRecording = nil
     }
 
+    func toggleMute() {
+        streamEngine.toggleMute()
+        isMuted = streamEngine.isMuted
+    }
+
     func takeSnapshot() {
+        Log.stream.info("[LiveVM] Taking snapshot for '\(self.camera.name, privacy: .public)'")
         streamEngine.takeSnapshot()
         snapshotSaved = true
         Task {

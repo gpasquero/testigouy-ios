@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 final class ONVIFPTZService {
     private let host: String
@@ -11,6 +12,7 @@ final class ONVIFPTZService {
         self.host = host
         self.port = port
         self.auth = ONVIFAuth(username: username, password: password)
+        Log.ptz.info("[PTZ] Service initialized for \(host, privacy: .public):\(port)")
     }
 
     // MARK: - PTZ Commands
@@ -21,6 +23,7 @@ final class ONVIFPTZService {
     ///   - tiltSpeed: -1.0 to 1.0 (down to up)
     ///   - zoomSpeed: -1.0 to 1.0 (out to in)
     func continuousMove(pan: Float, tilt: Float, zoom: Float) async throws {
+        Log.ptz.info("[PTZ] ContinuousMove → pan:\(pan) tilt:\(tilt) zoom:\(zoom)")
         let body = """
         <ContinuousMove xmlns="http://www.onvif.org/ver20/ptz/wsdl">
             <ProfileToken>\(profileToken)</ProfileToken>
@@ -35,6 +38,7 @@ final class ONVIFPTZService {
 
     /// Stop all PTZ movement
     func stop() async throws {
+        Log.ptz.debug("[PTZ] Stop command")
         let body = """
         <Stop xmlns="http://www.onvif.org/ver20/ptz/wsdl">
             <ProfileToken>\(profileToken)</ProfileToken>
@@ -47,6 +51,7 @@ final class ONVIFPTZService {
 
     /// Go to a named preset
     func gotoPreset(presetToken: String) async throws {
+        Log.ptz.info("[PTZ] GotoPreset → \(presetToken, privacy: .public)")
         let body = """
         <GotoPreset xmlns="http://www.onvif.org/ver20/ptz/wsdl">
             <ProfileToken>\(profileToken)</ProfileToken>
@@ -68,11 +73,15 @@ final class ONVIFPTZService {
         request.httpBody = envelope.data(using: .utf8)
         request.timeoutInterval = 5
 
+        Log.ptz.debug("[PTZ] Sending SOAP to \(url.absoluteString, privacy: .public)")
         let (_, response) = try await session.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse,
               (200...299).contains(httpResponse.statusCode) else {
+            let code = (response as? HTTPURLResponse)?.statusCode ?? -1
+            Log.ptz.error("[PTZ] Command failed with HTTP \(code)")
             throw ONVIFError.commandFailed
         }
+        Log.ptz.debug("[PTZ] Command OK")
     }
 
     private func buildEnvelope(body: String) -> String {

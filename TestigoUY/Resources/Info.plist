@@ -26,7 +26,10 @@
 		<false/>
 	</dict>
 	<key>UILaunchScreen</key>
-	<dict/>
+	<dict>
+		<key>UIColorName</key>
+		<string>SplashBackground</string>
+	</dict>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -49,6 +52,12 @@
 	</dict>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>TestigoUY needs access to your local network to connect to IP cameras via RTSP and ONVIF protocols.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_rtsp._tcp</string>
+		<string>_onvif._tcp</string>
+		<string>_http._tcp</string>
+	</array>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>TestigoUY needs access to save camera snapshots to your photo library.</string>
 </dict>

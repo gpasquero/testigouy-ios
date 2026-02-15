@@ -26,6 +26,13 @@ struct SingleCameraView: View {
                     resetOverlayTimer()
                 }
 
+            // Loading indicator — pass taps through
+            if viewModel.streamState.isLoading {
+                streamLoadingView
+                    .allowsHitTesting(false)
+                    .transition(.opacity)
+            }
+
             if showOverlay {
                 StreamOverlayView(
                     viewModel: viewModel,
@@ -59,6 +66,32 @@ struct SingleCameraView: View {
         }
     }
 
+    private var streamLoadingView: some View {
+        VStack(spacing: 14) {
+            ProgressView()
+                .scaleEffect(1.5)
+                .tint(Color("AccentColor"))
+
+            Text(loadingText)
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+        }
+        .padding(24)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(.black.opacity(0.6))
+        )
+    }
+
+    private var loadingText: String {
+        switch viewModel.streamState {
+        case .connecting: return "Conectando..."
+        case .buffering: return "Cargando stream..."
+        default: return "Conectando..."
+        }
+    }
+
     private var snapshotBanner: some View {
         VStack {
             Spacer()
@@ -75,8 +108,10 @@ struct SingleCameraView: View {
 
     private func resetOverlayTimer() {
         overlayTimer?.cancel()
+        // Don't auto-hide while still loading
+        guard viewModel.streamState.isActive else { return }
         overlayTimer = Task {
-            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            try? await Task.sleep(nanoseconds: 4_000_000_000)
             guard !Task.isCancelled else { return }
             withAnimation {
                 showOverlay = false

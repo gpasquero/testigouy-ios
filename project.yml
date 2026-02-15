@@ -31,7 +31,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.testigouy.app
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
-        DEVELOPMENT_TEAM: ""
+        DEVELOPMENT_TEAM: RC32MEF3BW
         CODE_SIGN_STYLE: Automatic
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         TARGETED_DEVICE_FAMILY: "1,2"
@@ -41,6 +41,7 @@ targets:
       - package: VLCKitSPM
       - package: FFmpegKitSPM
         product: FFmpeg-Kit
+        embed: true
 
   TestigoUYTests:
     type: bundle.unit-test

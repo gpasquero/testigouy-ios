@@ -1,4 +1,5 @@
 import CoreData
+import os
 
 final class PersistenceController {
     static let shared = PersistenceController()
@@ -10,10 +11,13 @@ final class PersistenceController {
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
-        container.loadPersistentStores { _, error in
+        Log.persistence.info("[CoreData] Loading persistent stores...")
+        container.loadPersistentStores { description, error in
             if let error {
+                Log.persistence.error("[CoreData] Failed to load: \(error.localizedDescription, privacy: .public)")
                 fatalError("Core Data failed to load: \(error.localizedDescription)")
             }
+            Log.persistence.info("[CoreData] Store loaded: \(description.url?.lastPathComponent ?? "unknown", privacy: .public)")
         }
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -26,14 +30,16 @@ final class PersistenceController {
         request.sortDescriptors = [NSSortDescriptor(keyPath: \CameraEntity.name, ascending: true)]
         do {
             let entities = try container.viewContext.fetch(request)
+            Log.persistence.debug("[CoreData] Fetched \(entities.count) camera(s)")
             return entities.map { $0.toCamera() }
         } catch {
-            print("Failed to fetch cameras: \(error)")
+            Log.persistence.error("[CoreData] Failed to fetch cameras: \(error.localizedDescription, privacy: .public)")
             return []
         }
     }
 
     func saveCamera(_ camera: Camera) {
+        Log.persistence.info("[CoreData] Saving camera '\(camera.name, privacy: .public)' (\(camera.host, privacy: .public))")
         let context = container.viewContext
         let request = NSFetchRequest<CameraEntity>(entityName: "CameraEntity")
         request.predicate = NSPredicate(format: "id == %@", camera.id as CVarArg)
@@ -61,12 +67,17 @@ final class PersistenceController {
     }
 
     func deleteCamera(id: UUID) {
+        Log.persistence.info("[CoreData] Deleting camera with id: \(id.uuidString, privacy: .public)")
         let context = container.viewContext
         let request = NSFetchRequest<CameraEntity>(entityName: "CameraEntity")
         request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         if let entity = try? context.fetch(request).first {
+            let name = entity.name ?? "unknown"
             context.delete(entity)
             saveContext()
+            Log.persistence.info("[CoreData] Camera '\(name, privacy: .public)' deleted")
+        } else {
+            Log.persistence.warning("[CoreData] Camera not found for deletion")
         }
     }
 
@@ -80,14 +91,16 @@ final class PersistenceController {
         }
         do {
             let entities = try container.viewContext.fetch(request)
+            Log.persistence.debug("[CoreData] Fetched \(entities.count) recording(s)")
             return entities.map { $0.toRecording() }
         } catch {
-            print("Failed to fetch recordings: \(error)")
+            Log.persistence.error("[CoreData] Failed to fetch recordings: \(error.localizedDescription, privacy: .public)")
             return []
         }
     }
 
     func saveRecording(_ recording: Recording) {
+        Log.persistence.info("[CoreData] Saving recording '\(recording.cameraName, privacy: .public)'")
         let context = container.viewContext
         let request = NSFetchRequest<RecordingEntity>(entityName: "RecordingEntity")
         request.predicate = NSPredicate(format: "id == %@", recording.id as CVarArg)
@@ -116,12 +129,14 @@ final class PersistenceController {
     }
 
     func deleteRecording(id: UUID) {
+        Log.persistence.info("[CoreData] Deleting recording \(id.uuidString, privacy: .public)")
         let context = container.viewContext
         let request = NSFetchRequest<RecordingEntity>(entityName: "RecordingEntity")
         request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         if let entity = try? context.fetch(request).first {
             // Delete file from disk
             if let path = entity.filePath {
+                Log.persistence.debug("[CoreData] Removing recording file: \(path, privacy: .public)")
                 try? FileManager.default.removeItem(atPath: path)
             }
             if let thumbPath = entity.thumbnailPath {
@@ -129,6 +144,9 @@ final class PersistenceController {
             }
             context.delete(entity)
             saveContext()
+            Log.persistence.info("[CoreData] Recording deleted")
+        } else {
+            Log.persistence.warning("[CoreData] Recording not found for deletion")
         }
     }
 
@@ -137,8 +155,9 @@ final class PersistenceController {
         guard context.hasChanges else { return }
         do {
             try context.save()
+            Log.persistence.debug("[CoreData] Context saved")
         } catch {
-            print("Core Data save error: \(error)")
+            Log.persistence.error("[CoreData] Save error: \(error.localizedDescription, privacy: .public)")
         }
     }
 }

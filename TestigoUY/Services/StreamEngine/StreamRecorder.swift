@@ -1,4 +1,5 @@
 import Foundation
+import os
 #if os(iOS)
 import ffmpegkit
 #endif
@@ -18,7 +19,10 @@ final class StreamRecorder: ObservableObject {
     var currentOutputPath: String? { outputPath }
 
     func startRecording(url: URL, cameraId: UUID, cameraName: String) -> Recording? {
-        guard !isRecording else { return nil }
+        guard !isRecording else {
+            Log.recording.warning("[Recorder] Already recording, ignoring start request")
+            return nil
+        }
 
         let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let recordingsDir = documentsDir.appendingPathComponent("Recordings", isDirectory: true)
@@ -28,6 +32,10 @@ final class StreamRecorder: ObservableObject {
         let sanitizedFileName = fileName.replacingOccurrences(of: " ", with: "_")
         let filePath = recordingsDir.appendingPathComponent(sanitizedFileName).path
 
+        Log.recording.info("[Recorder] Starting recording for '\(cameraName, privacy: .public)'")
+        Log.recording.debug("[Recorder] RTSP URL: \(url.absoluteString, privacy: .public)")
+        Log.recording.debug("[Recorder] Output: \(sanitizedFileName, privacy: .public)")
+
         let recordingId = UUID()
         currentRecordingId = recordingId
         outputPath = filePath
@@ -35,6 +43,7 @@ final class StreamRecorder: ObservableObject {
 
         #if os(iOS)
         let command = "-rtsp_transport tcp -i \(url.absoluteString) -c:v copy -c:a copy -movflags +faststart -y \(filePath)"
+        Log.recording.debug("[Recorder] FFmpeg command: \(command, privacy: .public)")
         session = FFmpegKit.executeAsync(command) { [weak self] session in
             DispatchQueue.main.async {
                 self?.handleSessionComplete(session)
@@ -58,6 +67,7 @@ final class StreamRecorder: ObservableObject {
     func stopRecording() -> (endDate: Date, fileSize: Int64)? {
         guard isRecording else { return nil }
 
+        Log.recording.info("[Recorder] Stopping recording...")
         timer?.invalidate()
         timer = nil
 
@@ -74,6 +84,9 @@ final class StreamRecorder: ObservableObject {
            let attrs = try? FileManager.default.attributesOfItem(atPath: path) {
             fileSize = attrs[.size] as? Int64 ?? 0
         }
+
+        let duration = startTime.map { endDate.timeIntervalSince($0) } ?? 0
+        Log.recording.info("[Recorder] Recording stopped. Duration: \(Int(duration))s, Size: \(fileSize) bytes")
 
         outputPath = nil
         startTime = nil
@@ -95,8 +108,12 @@ final class StreamRecorder: ObservableObject {
     private func handleSessionComplete(_ session: FFmpegSession?) {
         guard let session else { return }
         let returnCode = session.getReturnCode()
-        if !ReturnCode.isSuccess(returnCode) && !ReturnCode.isCancel(returnCode) {
-            print("FFmpeg recording failed: \(session.getOutput() ?? "unknown error")")
+        if ReturnCode.isSuccess(returnCode) {
+            Log.recording.info("[Recorder] FFmpeg session completed successfully")
+        } else if ReturnCode.isCancel(returnCode) {
+            Log.recording.debug("[Recorder] FFmpeg session cancelled (user stopped recording)")
+        } else {
+            Log.recording.error("[Recorder] FFmpeg recording failed: \(session.getOutput() ?? "unknown error", privacy: .public)")
         }
     }
     #endif

@@ -1,5 +1,6 @@
 import Foundation
 import Network
+import os
 
 /// Discovers IP cameras on the local network via ONVIF WS-Discovery and RTSP port scanning
 final class NetworkScanner: ObservableObject {
@@ -36,33 +37,60 @@ final class NetworkScanner: ObservableObject {
         discoveredHosts = []
         progress = 0
         statusMessage = "Starting scan..."
+        Log.discovery.info("[Scanner] Starting network scan...")
 
         scanTask = Task { [weak self] in
             guard let self else { return }
 
+            // Trigger Local Network permission dialog on iOS by making a small connection
+            await self.triggerLocalNetworkPermission()
+
             // Phase 1: ONVIF WS-Discovery (fast, multicast)
+            Log.discovery.info("[Scanner] Phase 1: ONVIF WS-Discovery via multicast 239.255.255.250:3702")
             await MainActor.run { self.statusMessage = "ONVIF Discovery..." }
             await self.onvifDiscovery()
 
             // Phase 2: RTSP port scan on local subnet
+            Log.discovery.info("[Scanner] Phase 2: RTSP port scan on local subnet (port 554)")
             await MainActor.run { self.statusMessage = "Scanning RTSP ports..." }
             await self.rtspPortScan()
 
             await MainActor.run {
                 self.isScanning = false
                 self.progress = 1.0
+                let count = self.discoveredHosts.count
                 self.statusMessage = self.discoveredHosts.isEmpty
                     ? "No cameras found"
                     : "Found \(self.discoveredHosts.count) camera(s)"
+                Log.discovery.info("[Scanner] Scan complete. Found \(count) camera(s)")
             }
         }
     }
 
     func stopScan() {
+        Log.discovery.info("[Scanner] Scan cancelled by user")
         scanTask?.cancel()
         scanTask = nil
         isScanning = false
         statusMessage = "Scan cancelled"
+    }
+
+    // MARK: - Local Network Permission Trigger
+
+    /// Triggers the iOS Local Network permission dialog by attempting a multicast connection.
+    /// Without this, BSD sockets silently fail on real devices.
+    private func triggerLocalNetworkPermission() async {
+        Log.discovery.debug("[Scanner] Triggering Local Network permission...")
+        let connection = NWConnection(
+            host: .ipv4(.broadcast),
+            port: 9,
+            using: .udp
+        )
+        connection.start(queue: .global())
+        // Give iOS time to show the permission dialog
+        try? await Task.sleep(nanoseconds: 1_500_000_000)
+        connection.cancel()
+        Log.discovery.debug("[Scanner] Local Network permission triggered")
     }
 
     // MARK: - ONVIF WS-Discovery
@@ -90,8 +118,13 @@ final class NetworkScanner: ObservableObject {
         guard let data = probeMessage.data(using: .utf8) else { return }
 
         // Create UDP socket for multicast
+        Log.discovery.debug("[ONVIF] Creating UDP multicast socket for 239.255.255.250:3702...")
         let fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)
-        guard fd >= 0 else { return }
+        guard fd >= 0 else {
+            Log.discovery.error("[ONVIF] Failed to create UDP socket (errno: \(errno))")
+            return
+        }
+        Log.discovery.debug("[ONVIF] Socket created (fd: \(fd))")
         defer { close(fd) }
 
         // Set socket timeout
@@ -115,7 +148,11 @@ final class NetworkScanner: ObservableObject {
                 }
             }
         }
-        guard sent > 0 else { return }
+        guard sent > 0 else {
+            Log.discovery.error("[ONVIF] Failed to send probe message")
+            return
+        }
+        Log.discovery.debug("[ONVIF] Probe sent (\(sent) bytes), waiting for responses...")
 
         // Receive responses
         var buffer = [UInt8](repeating: 0, count: 65536)
@@ -139,6 +176,7 @@ final class NetworkScanner: ObservableObject {
             if let response = String(data: responseData, encoding: .utf8) {
                 let host = extractHostFromResponse(response, addr: senderAddr)
                 if let host, !host.isEmpty {
+                    Log.discovery.info("[ONVIF] Discovered device at \(host, privacy: .public)")
                     await addDiscoveredCamera(host: host, port: 554, source: .onvif)
                 }
             }
@@ -166,6 +204,7 @@ final class NetworkScanner: ObservableObject {
 
     private func rtspPortScan() async {
         guard let subnet = getLocalSubnet() else {
+            Log.discovery.error("[PortScan] Could not determine local network subnet")
             await MainActor.run { self.statusMessage = "Could not determine local network" }
             return
         }
@@ -173,6 +212,7 @@ final class NetworkScanner: ObservableObject {
         let baseIP = subnet.base
         let total = 254
         let concurrency = 30
+        Log.discovery.info("[PortScan] Scanning \(baseIP, privacy: .public).1-254 on port 554 (concurrency: \(concurrency))")
 
         await withTaskGroup(of: (String, Bool).self) { group in
             var launched = 0
@@ -268,7 +308,11 @@ final class NetworkScanner: ObservableObject {
 
     private func addDiscoveredCamera(host: String, port: Int, source: DiscoveredCamera.DiscoverySource) async {
         await MainActor.run {
-            guard !discoveredHosts.contains(where: { $0.host == host }) else { return }
+            guard !discoveredHosts.contains(where: { $0.host == host }) else {
+                Log.discovery.debug("[Scanner] Skipping duplicate: \(host, privacy: .public)")
+                return
+            }
+            Log.discovery.info("[Scanner] ✓ Camera found: \(host, privacy: .public):\(port) via \(source.rawValue, privacy: .public)")
             discoveredHosts.append(DiscoveredCamera(host: host, port: port, source: source))
         }
     }
@@ -280,16 +324,40 @@ final class NetworkScanner: ObservableObject {
 
     private func getLocalSubnet() -> SubnetInfo? {
         var ifaddr: UnsafeMutablePointer<ifaddrs>?
-        guard getifaddrs(&ifaddr) == 0, let firstAddr = ifaddr else { return nil }
+        guard getifaddrs(&ifaddr) == 0, let firstAddr = ifaddr else {
+            Log.discovery.error("[Scanner] getifaddrs() failed")
+            return nil
+        }
         defer { freeifaddrs(ifaddr) }
+
+        // Log all interfaces for debugging
+        var allInterfaces: [(name: String, ip: String)] = []
+        for ptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
+            let addr = ptr.pointee
+            guard addr.ifa_addr.pointee.sa_family == UInt8(AF_INET) else { continue }
+
+            let name = String(cString: addr.ifa_name)
+            var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+            getnameinfo(addr.ifa_addr, socklen_t(addr.ifa_addr.pointee.sa_len),
+                       &hostname, socklen_t(hostname.count),
+                       nil, 0, NI_NUMERICHOST)
+            let ip = String(cString: hostname)
+            allInterfaces.append((name: name, ip: ip))
+        }
+
+        for iface in allInterfaces {
+            Log.discovery.debug("[Scanner] Interface: \(iface.name, privacy: .public) → \(iface.ip, privacy: .public)")
+        }
+
+        // WiFi interfaces: en0 (most common), en1 (some iPads), pdp_ip (cellular fallback)
+        let wifiNames = ["en0", "en1", "en2", "bridge0", "bridge100"]
 
         for ptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
             let addr = ptr.pointee
             guard addr.ifa_addr.pointee.sa_family == UInt8(AF_INET) else { continue }
 
             let name = String(cString: addr.ifa_name)
-            // Look for WiFi interface (en0) or hotspot (bridge)
-            guard name == "en0" || name.hasPrefix("bridge") else { continue }
+            guard wifiNames.contains(name) || name.hasPrefix("bridge") else { continue }
 
             var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
             getnameinfo(addr.ifa_addr, socklen_t(addr.ifa_addr.pointee.sa_len),
@@ -302,9 +370,22 @@ final class NetworkScanner: ObservableObject {
             let parts = ip.split(separator: ".")
             guard parts.count == 4 else { continue }
             let base = "\(parts[0]).\(parts[1]).\(parts[2])"
+            Log.discovery.info("[Scanner] Local IP: \(ip, privacy: .public) on \(name, privacy: .public), subnet: \(base, privacy: .public).x")
             return SubnetInfo(base: base, localIP: ip)
         }
 
+        // Fallback: try ANY private IP interface
+        for iface in allInterfaces {
+            if iface.ip.hasPrefix("192.168.") || iface.ip.hasPrefix("10.") || iface.ip.hasPrefix("172.") {
+                let parts = iface.ip.split(separator: ".")
+                guard parts.count == 4 else { continue }
+                let base = "\(parts[0]).\(parts[1]).\(parts[2])"
+                Log.discovery.info("[Scanner] Fallback IP: \(iface.ip, privacy: .public) on \(iface.name, privacy: .public), subnet: \(base, privacy: .public).x")
+                return SubnetInfo(base: base, localIP: iface.ip)
+            }
+        }
+
+        Log.discovery.error("[Scanner] No private IP found on any interface")
         return nil
     }
 }

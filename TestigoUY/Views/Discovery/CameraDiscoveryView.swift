@@ -199,28 +199,46 @@ struct CameraDiscoveryView: View {
                 .padding(.horizontal)
                 .padding(.top, 8)
 
-                // Credentials (optional)
-                HStack(spacing: 12) {
-                    TextField("Username", text: $probeUsername)
-                        #if os(iOS)
-                        .textInputAutocapitalization(.never)
-                        #endif
-                        .autocorrectionDisabled()
-                        .textFieldStyle(.roundedBorder)
+                // Credentials
+                VStack(spacing: 8) {
+                    HStack(spacing: 12) {
+                        TextField("Username", text: $probeUsername)
+                            #if os(iOS)
+                            .textInputAutocapitalization(.never)
+                            #endif
+                            .autocorrectionDisabled()
+                            .textFieldStyle(.roundedBorder)
 
-                    SecureField("Password", text: $probePassword)
-                        .textFieldStyle(.roundedBorder)
-
-                    Button(action: {
-                        prober.probe(host: camera.host, port: camera.port,
-                                     username: probeUsername, password: probePassword)
-                    }) {
-                        Text(prober.isProbing ? "..." : "Probe")
-                            .fontWeight(.medium)
+                        SecureField("Password", text: $probePassword)
+                            .textFieldStyle(.roundedBorder)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(Color("AccentColor"))
-                    .disabled(prober.isProbing)
+
+                    HStack(spacing: 12) {
+                        Button(action: {
+                            prober.probe(host: camera.host, port: camera.port,
+                                         username: probeUsername, password: probePassword)
+                        }) {
+                            HStack {
+                                Image(systemName: "antenna.radiowaves.left.and.right")
+                                Text(prober.isProbing ? "Probing..." : "Probe with Credentials")
+                            }
+                            .fontWeight(.medium)
+                            .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color("AccentColor"))
+                        .disabled(prober.isProbing)
+
+                        if !prober.isProbing && prober.triedPaths.isEmpty {
+                            Button(action: {
+                                prober.probe(host: camera.host, port: camera.port)
+                            }) {
+                                Text("Without")
+                                    .fontWeight(.medium)
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                    }
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
@@ -245,6 +263,16 @@ struct CameraDiscoveryView: View {
                         .font(.callout)
                         .monospaced()
                         .foregroundColor(.secondary)
+
+                    if let user = prober.foundUsername {
+                        HStack(spacing: 4) {
+                            Image(systemName: "key.fill")
+                                .foregroundStyle(Color("AccentColor"))
+                            Text("Credentials: \(user)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
 
                     Button(action: { addCamera(camera, path: foundPath) }) {
                         Label("Add Camera", systemImage: "plus.circle.fill")
@@ -278,9 +306,9 @@ struct CameraDiscoveryView: View {
                         if prober.isProbing {
                             Text("Testing RTSP paths...")
                         } else if !prober.triedPaths.isEmpty {
-                            Text("No working path found — try with credentials")
+                            Text("No working path found — try different credentials")
                         } else {
-                            Text("Tap Probe to auto-detect the RTSP stream")
+                            Text("Enter camera credentials above, then tap Probe")
                         }
                     }
                 }
@@ -294,17 +322,20 @@ struct CameraDiscoveryView: View {
         probingCamera = camera
         probeUsername = ""
         probePassword = ""
-        prober.probe(host: camera.host, port: camera.port)
+        // Don't auto-probe — let user enter credentials first
     }
 
     private func addCamera(_ discovered: NetworkScanner.DiscoveredCamera, path: String) {
+        // Use auto-detected credentials if available, otherwise use manual input
+        let username = prober.foundUsername ?? probeUsername
+        let password = prober.foundPassword ?? probePassword
         let camera = Camera(
             name: discovered.displayName,
             host: discovered.host,
             rtspPort: discovered.port,
             rtspPath: path,
-            username: probeUsername,
-            password: probePassword,
+            username: username,
+            password: password,
             onvifPort: 80,
             ptzCapability: discovered.source == .onvif ? .onvif : .none
         )
